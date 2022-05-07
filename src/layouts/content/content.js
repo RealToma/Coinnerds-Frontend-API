@@ -55,7 +55,7 @@ const Content = () => {
 
     }, [])
 
-    const useAudio = (url, url1, url2) => {
+    const useAudio = (url) => {
         const [audio] = useState(new Audio(url));
         // const [audio1] = useState(new Audio(url1));
         // const [audio2] = useState(new Audio(url2));
@@ -84,6 +84,7 @@ const Content = () => {
         useEffect(() => {
             audio.addEventListener('ended', () => {
                 audio.play();
+                setPlaying(true);
                 // audio1.play();
             });
             // audio1.addEventListener('ended', () => {
