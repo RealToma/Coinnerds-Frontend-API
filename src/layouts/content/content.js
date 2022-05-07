@@ -15,8 +15,8 @@ import IMG_INR from "../../images/inr.png";
 import IMG_PKR from "../../images/pkr.png";
 import { MdToggleOn, MdToggleOff } from "react-icons/md";
 import MUSIC01 from "../../assets/music/Ecstasy_ATB_Tiff_Lacey_(Don_Rayzer_Remix)_ft_Cara_Delevingne.mp3"
-import MUSIC02 from "../../assets/music/Frozen-All Is Found.mp3"
-import MUSIC03 from "../../assets/music/Frozen-Let It Go.mp3"
+// import MUSIC02 from "../../assets/music/Frozen-All Is Found.mp3"
+// import MUSIC03 from "../../assets/music/Frozen-Let It Go.mp3"
 
 import axios from "../../Server";
 import multiplyer from "../../config";
@@ -57,49 +57,49 @@ const Content = () => {
 
     const useAudio = (url, url1, url2) => {
         const [audio] = useState(new Audio(url));
-        const [audio1] = useState(new Audio(url1));
-        const [audio2] = useState(new Audio(url2));
+        // const [audio1] = useState(new Audio(url1));
+        // const [audio2] = useState(new Audio(url2));
         const [playing, setPlaying] = useState(false);
 
 
         const toggle = () => setPlaying(!playing);
 
         useEffect(() => {
-            if(playing === false)
-            {
-                audio.pause();
-                audio1.pause();
-                audio2.pause();
-            }
-            else
-            {
-                audio.play();
-                audio1.play();
-                audio2.play();
-            }
-            // playing ? audio.play() : audio.pause();
+            // if(playing === false)
+            // {
+            //     audio.pause();
+            //     audio1.pause();
+            //     audio2.pause();
+            // }
+            // else
+            // {
+            //     audio.play();
+            //     audio1.play();
+            //     audio2.play();
+            // }
+            playing ? audio.play() : audio.pause();
 
-        }, [audio,audio1, audio2, playing]);
+        }, [audio, playing]);
 
         useEffect(() => {
             audio.addEventListener('ended', () => {
-                audio.pause();
-                audio1.play();
-            });
-            audio1.addEventListener('ended', () => {
-                audio1.pause();
-                audio2.play();
-            });
-            audio2.addEventListener('ended', () => {
-                audio1.pause();
                 audio.play();
+                // audio1.play();
             });
-        }, [audio, audio1, audio2]);
+            // audio1.addEventListener('ended', () => {
+            //     audio1.pause();
+            //     audio2.play();
+            // });
+            // audio2.addEventListener('ended', () => {
+            //     audio1.pause();
+            //     audio.play();
+            // });
+        }, [audio]);
 
         return [playing, toggle];
     };
 
-    const [flag_music, set_flag_music] = useAudio(MUSIC01, MUSIC02, MUSIC03);
+    const [flag_music, set_flag_music] = useAudio(MUSIC01);
 
     const changeRate = (e) => {
         set_select_num(e.target.value);
