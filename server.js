@@ -119,8 +119,8 @@ var app = express();
 app.use(cors())
 
 app.get('/get_coinnerds_rate', function (req, res) {
-    let vaules = [p_btc, p_eth, p_doge, p_dash, p_xmr, p_usdc, p_eur, p_aed, p_inr, p_pkr];
-    let rates = [p_cad1, p_usd1, p_eur1, p_aed1, p_inr1, p_pkr1];
+    let vaules = [p_btc, p_eth, p_doge, p_dash, p_xmr, p_usdc, p_cad, p_eur, p_aed, p_inr, p_pkr];
+    let rates = [p_cad1, p_eur1, p_aed1, p_inr1, p_pkr1];
     res.send({
         success: 1,
         prices: vaules,
@@ -141,13 +141,7 @@ app.get('/api/liverates/:coin', function (req, res) {
                 time: now
             })
         }
-        // else{
-        //     res.send({
-        //         symbol: req.params.coin,
-        //         success: "false",
-        //         time: now
-        //     })
-        // }
+
     });
 
     if (req.params.coin === "btc") {

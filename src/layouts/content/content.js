@@ -23,7 +23,7 @@ import multiplyer from "../../config";
 
 
 const Content = () => {
-    const array_rate = ['CAD', 'USD', 'EUR', 'AED', 'INR', 'PKR'];
+    const array_rate = ['CAD', 'EUR', 'AED', 'INR', 'PKR'];
     const [p_currencies, set_pCurrencies] = useState([]);
     const [rate_select, set_rate_select] = useState(0);
     const [rate_list, set_rate_list] = useState([]);
@@ -51,8 +51,6 @@ const Content = () => {
             set_rate_select(res.data.p_cad);
         }).catch((error) => {
         })
-
-
     }, [])
 
     const useAudio = (url) => {
@@ -106,8 +104,8 @@ const Content = () => {
         set_select_num(e.target.value);
         set_rate_str(array_rate[e.target.value]);
         set_rate_select(rate_list[e.target.value]);
+        // alert(rate_list[e.target.value])
     }
-
 
     return (
         <StyledComponent>
@@ -138,17 +136,34 @@ const Content = () => {
                                         );
                                     }
                                     else {
-                                        return (
-                                            <RowText key={index}>
-                                                <LeftText02>
-                                                    <Box display="flex" alignItems="center">
-                                                        <img src={data.image_url} width="25px" alt="" />
-                                                    </Box>
-                                                    <Box display="flex" alignItems="center" ml="10px">1 {data.symbol}</Box>
-                                                </LeftText02>
+                                        if ((index - 6) === select_num) {
+                                            // p_currencies.pop(select_num);
+                                            return (
+                                                <RowText01 key={index}>
+                                                    <LeftText02>
+                                                        <Box display="flex" alignItems="center">
+                                                            <img src={data.image_url} width="25px" alt="" />
+                                                        </Box>
+                                                        <Box display="flex" alignItems="center" ml="10px">1 {data.symbol}</Box>
+                                                    </LeftText02>
                                                 <RightText02>{Number((p_currencies[index] * rate_select * markdown_buy[index])).toFixed(4)} {rate_str}</RightText02>
-                                            </RowText>
-                                        );
+                                                </RowText01>
+                                            );
+                                        }
+                                        else {
+                                            return (
+                                                <RowText key={index}>
+                                                    <LeftText02>
+                                                        <Box display="flex" alignItems="center">
+                                                            <img src={data.image_url} width="25px" alt="" />
+                                                        </Box>
+                                                        <Box display="flex" alignItems="center" ml="10px">1 {data.symbol}</Box>
+                                                    </LeftText02>
+                                                    <RightText02>{Number((p_currencies[index] * rate_select * markdown_buy[index])).toFixed(4)}{rate_str}</RightText02>
+                                                </RowText>
+                                            );
+                                        }
+
                                     }
 
                                 })
@@ -214,27 +229,25 @@ const Content = () => {
                             >
                                 <MenuItem value={0}>
                                     <Box display="flex" alignItems={"center"}><Box display={"flex"} alignItems="center"><img src={IMG_CAD} width="25px" alt="" /></Box><Box display={"flex"} alignItems="center" ml={"5px"}>CAD</Box></Box>
-
                                 </MenuItem>
-                                <MenuItem value={1}>
+                                {/* <MenuItem value={1}>
                                     <Box display="flex" alignItems={"center"}><Box display={"flex"} alignItems="center"><img src={IMG_USD} width="25px" alt="" /></Box><Box display={"flex"} alignItems="center" ml={"5px"}>USD</Box></Box>
 
-                                </MenuItem>
-                                <MenuItem value={2}>
+                                </MenuItem> */}
+                                <MenuItem value={1}>
                                     <Box display="flex" alignItems={"center"}><Box display={"flex"} alignItems="center"><img src={IMG_EUR} width="25px" alt="" /></Box><Box display={"flex"} alignItems="center" ml={"5px"}>EUR</Box></Box>
 
                                 </MenuItem>
-                                <MenuItem value={3}>
+                                <MenuItem value={2}>
                                     <Box display="flex" alignItems={"center"}><Box display={"flex"} alignItems="center"><img src={IMG_AED} width="25px" alt="" /></Box><Box display={"flex"} alignItems="center" ml={"5px"}>AED</Box></Box>
 
                                 </MenuItem>
-                                <MenuItem value={4}>
+                                <MenuItem value={3}>
                                     <Box display="flex" alignItems={"center"}><Box display={"flex"} alignItems="center"><img src={IMG_INR} width="25px" alt="" /></Box><Box display={"flex"} alignItems="center" ml={"5px"}>INR</Box></Box>
 
                                 </MenuItem>
-                                <MenuItem value={5}>
+                                <MenuItem value={4}>
                                     <Box display="flex" alignItems={"center"}><Box display={"flex"} alignItems="center"><img src={IMG_PKR} width="25px" alt="" /></Box><Box display={"flex"} alignItems="center" ml={"5px"}>PKR</Box></Box>
-
                                 </MenuItem>
                             </Select>
                         </FormControl>
@@ -450,6 +463,30 @@ const RowText = styled(Box)`
         font-size: 1rem;
     }
 `
+const RowText01 = styled(Box)`
+    display: none;
+    flex: 1;
+    width: 90%;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color:rgb(84 84 84);
+    font-family: 'Changa One',sans-serif;
+    &:hover{
+        cursor: pointer;
+        transition: .3s;
+        color:rgb(247 148 31);
+    }
+    @media (max-width: 1200px) {
+        font-size: 1.2rem;
+    }
+    @media (max-width: 900px) {
+        font-size: 1.3rem;
+    }
+    @media (max-width: 500px) {
+        font-size: 1rem;
+    }
+`
+
 const LeftText02 = styled(Box)`
     display: flex;
     flex:1;
