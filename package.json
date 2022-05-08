@@ -1,6 +1,6 @@
 {
-  "name": "simple_coin",
-  "version": "0.1.0",
+  "name": "Coin Nerds 2022",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "@ethersproject/providers": "^5.5.3",
@@ -28,8 +28,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "export PORT=9000 && react-scripts start",
-    "server": "node .\\server.js",
+    "start": "PORT=9000 react-scripts start",
+    "server": "node server.js",
     "dev": "concurrently \"npm run server\" \"npm run start\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
