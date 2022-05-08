@@ -179,7 +179,7 @@ const Content = () => {
                             <RightText01>SELL RATE</RightText01>
                         </TopTitle02>
                         <TableContent>
-                            {
+                        {
                                 currency_data.map((data, index) => {
                                     if (index < 5) {
                                         return (
@@ -190,23 +190,41 @@ const Content = () => {
                                                     </Box>
                                                     <Box display="flex" alignItems="center" ml="10px">1 {data.symbol}</Box>
                                                 </LeftText02>
-                                                <RightText02>{Number((parseFloat(p_currencies[index]) * rate_select * markup_sell[index]).toFixed(2))} {rate_str}</RightText02>
+                                                <RightText02>{Number((p_currencies[index] * rate_select * markup_sell[index])).toFixed(2)} {rate_str}</RightText02>
                                             </RowText>
                                         );
                                     }
                                     else {
-                                        return (
-                                            <RowText key={index}>
-                                                <LeftText02>
-                                                    <Box display="flex" alignItems="center">
-                                                        <img src={data.image_url} width="25px" alt="" />
-                                                    </Box>
-                                                    <Box display="flex" alignItems="center" ml="10px">1 {data.symbol}</Box>
-                                                </LeftText02>
-                                                <RightText02>{Number((parseFloat(p_currencies[index]) * rate_select * markup_sell[index]).toFixed(4))} {rate_str}</RightText02>
-                                            </RowText>
-                                        );
+                                        if ((index - 6) === select_num) {
+                                            // p_currencies.pop(select_num);
+                                            return (
+                                                <RowText01 key={index}>
+                                                    <LeftText02>
+                                                        <Box display="flex" alignItems="center">
+                                                            <img src={data.image_url} width="25px" alt="" />
+                                                        </Box>
+                                                        <Box display="flex" alignItems="center" ml="10px">1 {data.symbol}</Box>
+                                                    </LeftText02>
+                                                <RightText02>{Number((p_currencies[index] * rate_select * markup_sell[index])).toFixed(4)} {rate_str}</RightText02>
+                                                </RowText01>
+                                            );
+                                        }
+                                        else {
+                                            return (
+                                                <RowText key={index}>
+                                                    <LeftText02>
+                                                        <Box display="flex" alignItems="center">
+                                                            <img src={data.image_url} width="25px" alt="" />
+                                                        </Box>
+                                                        <Box display="flex" alignItems="center" ml="10px">1 {data.symbol}</Box>
+                                                    </LeftText02>
+                                                    <RightText02>{Number((p_currencies[index] * rate_select * markup_sell[index])).toFixed(4)}{rate_str}</RightText02>
+                                                </RowText>
+                                            );
+                                        }
+
                                     }
+
                                 })
                             }
                         </TableContent>
