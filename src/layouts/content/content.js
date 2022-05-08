@@ -159,7 +159,7 @@ const Content = () => {
                                                         </Box>
                                                         <Box display="flex" alignItems="center" ml="10px">1 {data.symbol}</Box>
                                                     </LeftText02>
-                                                    <RightText02>{Number((p_currencies[index] * rate_select * markdown_buy[index])).toFixed(4)}{rate_str}</RightText02>
+                                                    <RightText02>{Number((p_currencies[index] * rate_select * markdown_buy[index])).toFixed(4)} {rate_str}</RightText02>
                                                 </RowText>
                                             );
                                         }
@@ -218,7 +218,7 @@ const Content = () => {
                                                         </Box>
                                                         <Box display="flex" alignItems="center" ml="10px">1 {data.symbol}</Box>
                                                     </LeftText02>
-                                                    <RightText02>{Number((p_currencies[index] * rate_select * markup_sell[index])).toFixed(4)}{rate_str}</RightText02>
+                                                    <RightText02>{Number((p_currencies[index] * rate_select * markup_sell[index])).toFixed(4)} {rate_str}</RightText02>
                                                 </RowText>
                                             );
                                         }
