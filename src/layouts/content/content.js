@@ -22,11 +22,11 @@ import axios from "../../Server";
 import multiplyer from "../../config";
 
 const Content = () => {
-    const array_rate = ['CAD', 'USD', 'EUR', 'AED', 'INR', 'PKR'];
+    const array_rate = ['USD', 'CAD', 'EUR', 'AED', 'INR', 'PKR'];
     const [p_currencies, set_pCurrencies] = useState([]);
     const [rate_select, set_rate_select] = useState(0);
     const [rate_list, set_rate_list] = useState([]);
-    const [rate_str, set_rate_str] = useState('CAD');
+    const [rate_str, set_rate_str] = useState('USD');
     const [select_num, set_select_num] = useState(0);
     const markdown_buy = multiplyer['markdown_buy'];
     const markup_sell = multiplyer['markup_sell'];
@@ -47,7 +47,8 @@ const Content = () => {
         // setTimeout(() => {
         // }, 2000);
         axios.get("get_coinnerds_rate").then((res) => {
-            set_rate_select(res.data.p_cad);
+            set_rate_select(res.data.p_usd);
+            console.log("usd:",res.data.p_usd)
         }).catch((error) => {
         })
     }, [])
@@ -141,7 +142,8 @@ const Content = () => {
                                         );
                                     }
                                     else {
-                                        if ((index - 6) === select_num) {
+                                        
+                                        if ((index - 5 === select_num) ) {
                                             // p_currencies.pop(select_num);
                                             return (
                                                 <RowText01 key={index}>
@@ -200,7 +202,7 @@ const Content = () => {
                                         );
                                     }
                                     else {
-                                        if ((index - 6) === select_num) {
+                                        if ((index - 5 === select_num)) {
                                             // p_currencies.pop(select_num);
                                             return (
                                                 <RowText01 key={index}>
@@ -251,10 +253,10 @@ const Content = () => {
                                 className="select-all"
                             >
                                 <MenuItem value={0}>
-                                    <Box display="flex" alignItems={"center"}><Box display={"flex"} alignItems="center"><img src={IMG_CAD} width="25px" alt="" /></Box><Box display={"flex"} alignItems="center" ml={"5px"}>CAD</Box></Box>
+                                    <Box display="flex" alignItems={"center"}><Box display={"flex"} alignItems="center"><img src={IMG_USD} width="25px" alt="" /></Box><Box display={"flex"} alignItems="center" ml={"5px"}>USD</Box></Box>
                                 </MenuItem>
                                 <MenuItem value={1}>
-                                    <Box display="flex" alignItems={"center"}><Box display={"flex"} alignItems="center"><img src={IMG_USD} width="25px" alt="" /></Box><Box display={"flex"} alignItems="center" ml={"5px"}>USD</Box></Box>
+                                    <Box display="flex" alignItems={"center"}><Box display={"flex"} alignItems="center"><img src={IMG_CAD} width="25px" alt="" /></Box><Box display={"flex"} alignItems="center" ml={"5px"}>CAD</Box></Box>
                                 </MenuItem>
                                 <MenuItem value={2}>
                                     <Box display="flex" alignItems={"center"}><Box display={"flex"} alignItems="center"><img src={IMG_EUR} width="25px" alt="" /></Box><Box display={"flex"} alignItems="center" ml={"5px"}>EUR</Box></Box>
