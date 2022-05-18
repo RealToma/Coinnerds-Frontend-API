@@ -21,9 +21,8 @@ import MUSIC01 from "../../assets/music/Ecstasy_ATB_Tiff_Lacey_(Don_Rayzer_Remix
 import axios from "../../Server";
 import multiplyer from "../../config";
 
-
 const Content = () => {
-    const array_rate = ['CAD', 'EUR', 'AED', 'INR', 'PKR'];
+    const array_rate = ['CAD', 'USD', 'EUR', 'AED', 'INR', 'PKR'];
     const [p_currencies, set_pCurrencies] = useState([]);
     const [rate_select, set_rate_select] = useState(0);
     const [rate_list, set_rate_list] = useState([]);
@@ -31,6 +30,8 @@ const Content = () => {
     const [select_num, set_select_num] = useState(0);
     const markdown_buy = multiplyer['markdown_buy'];
     const markup_sell = multiplyer['markup_sell'];
+    // const testFolder = './src/assets/music/';
+
 
     useEffect(() => {
         setInterval(() => {
@@ -44,9 +45,7 @@ const Content = () => {
     }, [])
     useEffect(() => {
         // setTimeout(() => {
-
         // }, 2000);
-
         axios.get("get_coinnerds_rate").then((res) => {
             set_rate_select(res.data.p_cad);
         }).catch((error) => {
@@ -80,6 +79,13 @@ const Content = () => {
         }, [audio, playing]);
 
         useEffect(() => {
+
+            // fs.readdir(testFolder, (err, files) => {
+            //     files.forEach(file => {
+            //         console.log(file);
+            //     });
+            // });
+
             audio.addEventListener('ended', () => {
                 audio.play();
                 setPlaying(true);
@@ -104,7 +110,6 @@ const Content = () => {
         set_select_num(e.target.value);
         set_rate_str(array_rate[e.target.value]);
         set_rate_select(rate_list[e.target.value]);
-        // alert(rate_list[e.target.value])
     }
 
     return (
@@ -146,7 +151,7 @@ const Content = () => {
                                                         </Box>
                                                         <Box display="flex" alignItems="center" ml="10px">1 {data.symbol}</Box>
                                                     </LeftText02>
-                                                <RightText02>{Number((p_currencies[index] * rate_select * markdown_buy[index])).toFixed(4)} {rate_str}</RightText02>
+                                                    <RightText02>{Number((p_currencies[index] * rate_select * markdown_buy[index])).toFixed(4)} {rate_str}</RightText02>
                                                 </RowText01>
                                             );
                                         }
@@ -179,7 +184,7 @@ const Content = () => {
                             <RightText01>SELL RATE</RightText01>
                         </TopTitle02>
                         <TableContent>
-                        {
+                            {
                                 currency_data.map((data, index) => {
                                     if (index < 5) {
                                         return (
@@ -205,7 +210,7 @@ const Content = () => {
                                                         </Box>
                                                         <Box display="flex" alignItems="center" ml="10px">1 {data.symbol}</Box>
                                                     </LeftText02>
-                                                <RightText02>{Number((p_currencies[index] * rate_select * markup_sell[index])).toFixed(4)} {rate_str}</RightText02>
+                                                    <RightText02>{Number((p_currencies[index] * rate_select * markup_sell[index])).toFixed(4)} {rate_str}</RightText02>
                                                 </RowText01>
                                             );
                                         }
@@ -248,23 +253,19 @@ const Content = () => {
                                 <MenuItem value={0}>
                                     <Box display="flex" alignItems={"center"}><Box display={"flex"} alignItems="center"><img src={IMG_CAD} width="25px" alt="" /></Box><Box display={"flex"} alignItems="center" ml={"5px"}>CAD</Box></Box>
                                 </MenuItem>
-                                {/* <MenuItem value={1}>
-                                    <Box display="flex" alignItems={"center"}><Box display={"flex"} alignItems="center"><img src={IMG_USD} width="25px" alt="" /></Box><Box display={"flex"} alignItems="center" ml={"5px"}>USD</Box></Box>
-
-                                </MenuItem> */}
                                 <MenuItem value={1}>
-                                    <Box display="flex" alignItems={"center"}><Box display={"flex"} alignItems="center"><img src={IMG_EUR} width="25px" alt="" /></Box><Box display={"flex"} alignItems="center" ml={"5px"}>EUR</Box></Box>
-
+                                    <Box display="flex" alignItems={"center"}><Box display={"flex"} alignItems="center"><img src={IMG_USD} width="25px" alt="" /></Box><Box display={"flex"} alignItems="center" ml={"5px"}>USD</Box></Box>
                                 </MenuItem>
                                 <MenuItem value={2}>
-                                    <Box display="flex" alignItems={"center"}><Box display={"flex"} alignItems="center"><img src={IMG_AED} width="25px" alt="" /></Box><Box display={"flex"} alignItems="center" ml={"5px"}>AED</Box></Box>
-
+                                    <Box display="flex" alignItems={"center"}><Box display={"flex"} alignItems="center"><img src={IMG_EUR} width="25px" alt="" /></Box><Box display={"flex"} alignItems="center" ml={"5px"}>EUR</Box></Box>
                                 </MenuItem>
                                 <MenuItem value={3}>
-                                    <Box display="flex" alignItems={"center"}><Box display={"flex"} alignItems="center"><img src={IMG_INR} width="25px" alt="" /></Box><Box display={"flex"} alignItems="center" ml={"5px"}>INR</Box></Box>
-
+                                    <Box display="flex" alignItems={"center"}><Box display={"flex"} alignItems="center"><img src={IMG_AED} width="25px" alt="" /></Box><Box display={"flex"} alignItems="center" ml={"5px"}>AED</Box></Box>
                                 </MenuItem>
                                 <MenuItem value={4}>
+                                    <Box display="flex" alignItems={"center"}><Box display={"flex"} alignItems="center"><img src={IMG_INR} width="25px" alt="" /></Box><Box display={"flex"} alignItems="center" ml={"5px"}>INR</Box></Box>
+                                </MenuItem>
+                                <MenuItem value={5}>
                                     <Box display="flex" alignItems={"center"}><Box display={"flex"} alignItems="center"><img src={IMG_PKR} width="25px" alt="" /></Box><Box display={"flex"} alignItems="center" ml={"5px"}>PKR</Box></Box>
                                 </MenuItem>
                             </Select>

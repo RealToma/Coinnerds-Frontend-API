@@ -8,6 +8,7 @@ const multiplyer = {
         0.99,               // Moreno(xmr)
         0.9930,             // USDC       
         0.98,               // CAD        
+        0.98,               // USD  
         0.9930,             // EUR        
         0.98,               // AED        
         0.98,               // INR        
@@ -21,7 +22,8 @@ const multiplyer = {
         1.01,               // Dash       
         1.01,               // Moreno(xmr)
         1.0070,             // USDC       
-        1.02,               // CAD        
+        1.02,               // CAD     
+        0.98,               // USD     
         1.0070,             // EUR        
         1.02,               // AED        
         1.02,               // INR        

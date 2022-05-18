@@ -35,6 +35,11 @@
         "image_url": "./images/currency/cad.svg"
     },
     {
+        "name": "USD",
+        "symbol": "USD",
+        "image_url": "./images/currency/usa.png"
+    },
+    {
         "name": "EUR",
         "symbol": "EUR",
         "image_url": "./images/currency/euro.png"

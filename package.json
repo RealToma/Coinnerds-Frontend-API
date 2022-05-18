@@ -16,6 +16,7 @@
     "cors": "^2.8.5",
     "ethers": "^5.5.4",
     "freeforexapi": "^1.0.0",
+    "fs": "^0.0.1-security",
     "nodemon": "^2.0.16",
     "react": "^17.0.2",
     "react-audio-player": "^0.17.0",
@@ -28,7 +29,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "PORT=9000 react-scripts start",
+    "start": "export PORT=9000 && react-scripts start",
     "server": "node server.js",
     "dev": "concurrently \"npm run server\" \"npm run start\"",
     "build": "react-scripts build",
