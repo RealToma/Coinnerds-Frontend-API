@@ -15,6 +15,7 @@ import IMG_INR from "../../images/inr.png";
 import IMG_PKR from "../../images/pkr.png";
 import { MdToggleOn, MdToggleOff } from "react-icons/md";
 import MUSIC01 from "../../assets/music/Ecstasy_ATB_Tiff_Lacey_(Don_Rayzer_Remix)_ft_Cara_Delevingne.mp3"
+// import fs from 'fs'
 // import MUSIC02 from "../../assets/music/Frozen-All Is Found.mp3"
 // import MUSIC03 from "../../assets/music/Frozen-Let It Go.mp3"
 
@@ -30,8 +31,13 @@ const Content = () => {
     const [select_num, set_select_num] = useState(0);
     const markdown_buy = multiplyer['markdown_buy'];
     const markup_sell = multiplyer['markup_sell'];
-    // const testFolder = './src/assets/music/';
-
+    const [music_list, set_music_list] = useState("z_hello01.mp3");
+    // useEffect(() => {
+    //     axios.get("get_files_list").then((res) => {
+    //         set_music_list(res.data.files[0])
+    //     }).catch((error) => {
+    //     })
+    // }, [])
 
     useEffect(() => {
         setInterval(() => {
@@ -41,72 +47,43 @@ const Content = () => {
             }).catch((error) => {
             })
         }, 1000)
-
     }, [])
     useEffect(() => {
-        // setTimeout(() => {
-        // }, 2000);
         axios.get("get_coinnerds_rate").then((res) => {
             set_rate_select(res.data.p_usd);
-            console.log("usd:",res.data.p_usd)
         }).catch((error) => {
         })
     }, [])
 
     const useAudio = (url) => {
-        const [audio] = useState(new Audio(url));
-        // const [audio1] = useState(new Audio(url1));
-        // const [audio2] = useState(new Audio(url2));
+        console.log(url)
+        const [audio] = useState(new Audio(require("../../assets/music/" + url)));
         const [playing, setPlaying] = useState(false);
-
-
         const toggle = () => setPlaying(!playing);
 
         useEffect(() => {
-            // if(playing === false)
-            // {
-            //     audio.pause();
-            //     audio1.pause();
-            //     audio2.pause();
-            // }
-            // else
-            // {
-            //     audio.play();
-            //     audio1.play();
-            //     audio2.play();
-            // }
             playing ? audio.play() : audio.pause();
-
         }, [audio, playing]);
 
         useEffect(() => {
-
-            // fs.readdir(testFolder, (err, files) => {
-            //     files.forEach(file => {
-            //         console.log(file);
-            //     });
-            // });
-
             audio.addEventListener('ended', () => {
                 audio.play();
                 setPlaying(true);
-                // audio1.play();
             });
-            // audio1.addEventListener('ended', () => {
-            //     audio1.pause();
-            //     audio2.play();
-            // });
-            // audio2.addEventListener('ended', () => {
-            //     audio1.pause();
-            //     audio.play();
-            // });
         }, [audio]);
-
         return [playing, toggle];
     };
 
-    const [flag_music, set_flag_music] = useAudio(MUSIC01);
+    const [flag_music, set_flag_music] = useAudio(music_list);
 
+    const set_music = () => {
+        axios.get("get_files_list").then((res) => {
+            var index = Math.floor((Math.random() * res.data.files.length));
+            set_music_list(res.data.files[index])
+        }).catch((error) => {
+        })
+    }
+    
     const changeRate = (e) => {
         set_select_num(e.target.value);
         set_rate_str(array_rate[e.target.value]);
@@ -142,8 +119,8 @@ const Content = () => {
                                         );
                                     }
                                     else {
-                                        
-                                        if ((index - 5 === select_num) ) {
+
+                                        if ((index - 5 === select_num)) {
                                             // p_currencies.pop(select_num);
                                             return (
                                                 <RowText01 key={index}>
@@ -277,7 +254,14 @@ const Content = () => {
                         Music:
                     </Text01>
                     <MusicBox display="flex" fontSize={"3.5rem"}>
-                        {flag_music ? <MdToggleOn color="rgb(213 48 48)" onClick={() => set_flag_music()} /> : <MdToggleOff color="rgb(84 84 84)" onClick={() => set_flag_music()} />}
+                        {flag_music ? <MdToggleOn color="rgb(213 48 48)" onClick={() => {
+                            set_flag_music();
+
+                        }} /> : <MdToggleOff color="rgb(84 84 84)" onClick={() => {
+                            set_music();
+                            set_flag_music();
+                        }
+                        } />}
                     </MusicBox>
                 </Box>
                 <Text01>rates subject to terms {'&'} conditions</Text01>

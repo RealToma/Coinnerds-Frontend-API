@@ -39,7 +39,9 @@ let p_inr1 = 0;
 let p_pkr1 = 0;
 
 let coin_price = new Object;
-
+const fs = require('fs')
+const dir = './src/assets/music'
+const files = fs.readdirSync(dir);
 
 setInterval(async () => {
     // const today = new Date()
@@ -117,6 +119,12 @@ setInterval(async () => {
 var app = express();
 
 app.use(cors())
+
+app.get('/get_files_list', function (req, res) {
+    res.send({
+        files: files
+    })
+});
 
 app.get('/get_coinnerds_rate', function (req, res) {
     let vaules = [p_btc, p_eth, p_doge, p_dash, p_xmr, p_usdc, p_cad, p_eur, p_aed, p_inr, p_pkr];
