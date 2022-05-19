@@ -30,7 +30,16 @@ const Content = () => {
     const [select_num, set_select_num] = useState(0);
     const markdown_buy = multiplyer['markdown_buy'];
     const markup_sell = multiplyer['markup_sell'];
-    const [music_list, set_music_list] = useState("Ecstasy_ATB_Tiff_Lacey_(Don_Rayzer_Remix)_ft_Cara_Delevingne.mp3");
+    const [music_list, set_music_list] = useState();
+    useEffect(() => {
+        axios.get("get_files_list").then((res) => {
+            var index = Math.floor((Math.random() * res.data.files.length));
+            console.log(res.data.files[index])
+            let song = new Audio(require("../../assets/music/" + res.data.files[index]));
+            set_music_list(song)
+        }).catch((error) => {
+        })
+    }, [])
     useEffect(() => {
         setInterval(() => {
             axios.get("get_coinnerds_rate").then((res) => {
@@ -46,36 +55,55 @@ const Content = () => {
         }).catch((error) => {
         })
     }, [])
-
-    const useAudio = (url) => {
-        // console.log(url)
-        const [audio] = useState(new Audio(require("../../assets/music/" + url)));
-        const [playing, setPlaying] = useState(false);
-        const toggle = () => setPlaying(!playing);
-
-        useEffect(() => {
-            playing ? audio.play() : audio.pause();
-        }, [audio, playing]);
-
-        useEffect(() => {
-            audio.addEventListener('ended', () => {
-                audio.play();
-                setPlaying(true);
+    useEffect(() => {
+        if (typeof (music_list) === 'undefined') {
+            return;
+        }
+        else {
+            music_list.addEventListener('ended', () => {
+                axios.get("get_files_list").then((res) => {
+                    var index = Math.floor((Math.random() * res.data.files.length));
+                    let song = new Audio(require("../../assets/music/" + res.data.files[index]));
+                    set_music_list(song);
+                }).catch((error) => {
+                })
+                music_list.play();
+                set_flag_music(true);
             });
-        }, [audio]);
-        return [playing, toggle];
-    };
+            
+        }
 
-    const [flag_music, set_flag_music] = useAudio(music_list);
+    }, [music_list]);
+    // const useAudio = () => {
+    //     console.log(music_list)
+    //     const [audio] = useState(new Audio(require("../../assets/music/" + music_list)));
+    //     const [playing, setPlaying] = useState(false);
+    //     const toggle = () => setPlaying(!playing);
 
-    const set_music = () => {
-        axios.get("get_files_list").then((res) => {
-            var index = Math.floor((Math.random() * res.data.files.length));
-            set_music_list(res.data.files[index])
-        }).catch((error) => {
-        })
+    //     useEffect(() => {
+    //         playing ? audio.play() : audio.pause();
+    //     }, [audio, playing]);
+
+    //     useEffect(() => {
+    //         audio.addEventListener('ended', () => {
+    //             audio.play();
+    //             setPlaying(true);
+    //         });
+    //     }, [audio]);
+    //     return [playing, toggle];
+    // };
+
+    const [flag_music, set_flag_music] = useState(false);
+
+    const play_music = () => {
+        if (flag_music === false) {
+            music_list.play();
+        }
+        else {
+            music_list.pause();
+        }
     }
-    
+
     const changeRate = (e) => {
         set_select_num(e.target.value);
         set_rate_str(array_rate[e.target.value]);
@@ -247,11 +275,13 @@ const Content = () => {
                     </Text01>
                     <MusicBox display="flex" fontSize={"3.5rem"}>
                         {flag_music ? <MdToggleOn color="rgb(213 48 48)" onClick={() => {
-                            set_flag_music();
+                            set_flag_music(false);
+                            play_music();
 
                         }} /> : <MdToggleOff color="rgb(84 84 84)" onClick={() => {
-                            set_music();
-                            set_flag_music();
+                            set_flag_music(true);
+                            play_music();
+
                         }
                         } />}
                     </MusicBox>
