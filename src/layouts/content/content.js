@@ -31,7 +31,7 @@ const Content = () => {
     const [select_num, set_select_num] = useState(0);
     const markdown_buy = multiplyer['markdown_buy'];
     const markup_sell = multiplyer['markup_sell'];
-    const [music_list, set_music_list] = useState("Ecstasy_ATB_Tiff_Lacey_(Don_Rayzer_Remix)_ft_Cara_Delevingne.mp3");
+    const [music_list, set_music_list] = useState("Matt_Fax-ft.-Ava_Silver-The_Wave.mp3");
     // useEffect(() => {
     //     axios.get("get_files_list").then((res) => {
     //         set_music_list(res.data.files[0])
@@ -56,7 +56,7 @@ const Content = () => {
     }, [])
 
     const useAudio = (url) => {
-        console.log(url)
+        // console.log(url)
         const [audio] = useState(new Audio(require("../../assets/music/" + url)));
         const [playing, setPlaying] = useState(false);
         const toggle = () => setPlaying(!playing);
