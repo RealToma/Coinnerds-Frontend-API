@@ -31,13 +31,6 @@ const Content = () => {
     const markdown_buy = multiplyer['markdown_buy'];
     const markup_sell = multiplyer['markup_sell'];
     const [music_list, set_music_list] = useState("Matt_Fax-ft.-Ava_Silver-The_Wave.mp3");
-    // useEffect(() => {
-    //     axios.get("get_files_list").then((res) => {
-    //         set_music_list(res.data.files[0])
-    //     }).catch((error) => {
-    //     })
-    // }, [])
-
     useEffect(() => {
         setInterval(() => {
             axios.get("get_coinnerds_rate").then((res) => {
