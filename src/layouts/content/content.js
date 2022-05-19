@@ -14,7 +14,6 @@ import IMG_AED from "../../images/aed.png";
 import IMG_INR from "../../images/inr.png";
 import IMG_PKR from "../../images/pkr.png";
 import { MdToggleOn, MdToggleOff } from "react-icons/md";
-import MUSIC01 from "../../assets/music/Ecstasy_ATB_Tiff_Lacey_(Don_Rayzer_Remix)_ft_Cara_Delevingne.mp3"
 // import fs from 'fs'
 // import MUSIC02 from "../../assets/music/Frozen-All Is Found.mp3"
 // import MUSIC03 from "../../assets/music/Frozen-Let It Go.mp3"
