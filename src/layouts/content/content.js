@@ -30,7 +30,7 @@ const Content = () => {
     const [select_num, set_select_num] = useState(0);
     const markdown_buy = multiplyer['markdown_buy'];
     const markup_sell = multiplyer['markup_sell'];
-    const [music_list, set_music_list] = useState("Matt_Fax-ft.-Ava_Silver-The_Wave.mp3");
+    const [music_list, set_music_list] = useState("Ecstasy_ATB_Tiff_Lacey_(Don_Rayzer_Remix)_ft_Cara_Delevingne.mp3");
     useEffect(() => {
         setInterval(() => {
             axios.get("get_coinnerds_rate").then((res) => {
